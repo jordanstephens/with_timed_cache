@@ -1,6 +1,6 @@
 # WithTimedCache
 
-TODO: Write a gem description
+A simple, time-based cache.
 
 ## Installation
 
@@ -18,12 +18,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    with_timed_cache(key, max_age: 1.hour) do
+      # some operation you would like cached for a certain amount of time
+    end
 
-## Contributing
+**Options**
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+* `max_age`: how long to use the cached data, ex: `30.minutes`
+* `location`: the directory path in which to store cache files
+* `format`: cache data may be persisted as `:json`, `:yaml`, or the default of marshaling objects to strings will be used.
+
