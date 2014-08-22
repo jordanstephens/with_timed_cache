@@ -1,5 +1,7 @@
 # WithTimedCache
 
+[![Build Status](https://travis-ci.org/jordanstephens/with_timed_cache.svg?branch=master)](https://travis-ci.org/jordanstephens/with_timed_cache)
+
 A simple, time-based cache.
 
 ## Installation
