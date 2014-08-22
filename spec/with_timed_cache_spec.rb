@@ -5,6 +5,7 @@ describe WithTimedCache do
 
   before(:all) do
     @cache_directory = "spec/data/tmp"
+    FileUtils.mkdir_p(@cache_directory)
     clean_cache_directory
   end
 
