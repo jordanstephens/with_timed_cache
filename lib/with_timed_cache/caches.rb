@@ -27,6 +27,7 @@ module WithTimedCache
       def cache_class(format = "")
         format = format.to_s.upcase
         begin
+          # Ruby Version 1.9 and earlier will choke on this line
           Object.const_get("WithTimedCache::#{format}Cache")
         rescue
           raise WithTimedCache::InvalidCacheFormatException
