@@ -2,16 +2,16 @@ require 'spec_helper'
 
 describe WithTimedCache::JSONCache do
   it "knows it's local class name" do
-    WithTimedCache::JSONCache.local_class_name.should == "JSONCache"
+    expect(WithTimedCache::JSONCache.local_class_name).to eql("JSONCache")
   end
 
   it "has a file_extension" do
-    WithTimedCache::JSONCache.file_extension.should == "json"
+    expect(WithTimedCache::JSONCache.file_extension).to eql("json")
   end
 
   it "should have a filename with the '.json' extension" do
     cache = WithTimedCache::JSONCache.new(:foo)
-    (cache.filename =~ /^.+\.json$/).should be_true
+    expect(!!(cache.filename =~ /^.+\.json$/)).to be true
   end
 end
 

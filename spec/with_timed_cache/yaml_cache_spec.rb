@@ -2,16 +2,16 @@ require 'spec_helper'
 
 describe WithTimedCache::YAMLCache do
   it "knows it's local class name" do
-    WithTimedCache::YAMLCache.local_class_name.should == "YAMLCache"
+    expect(WithTimedCache::YAMLCache.local_class_name).to eql("YAMLCache")
   end
 
   it "has a file_extension" do
-    WithTimedCache::YAMLCache.file_extension.should == "yml"
+    expect(WithTimedCache::YAMLCache.file_extension).to eql("yml")
   end
 
   it "should have a filename with the '.yml' extension" do
     cache = WithTimedCache::YAMLCache.new(:foo)
-    (cache.filename =~ /^.+\.yml$/).should be_true
+    expect(!!(cache.filename =~ /^.+\.yml$/)).to be true
   end
 end
 

@@ -6,22 +6,22 @@ describe WithTimedCache::Caches do
       key = :find_or_create
       first_ref = WithTimedCache::Caches.find_or_create(key)
       second_ref = WithTimedCache::Caches.find_or_create(key)
-      first_ref.eql?(second_ref).should be_true
+      expect(first_ref.eql?(second_ref)).to be true
     end
   end
 
   describe ".cache_class" do
     it "will return the constant of the cache class for the given format" do
-      WithTimedCache::Caches.cache_class(:json).should == WithTimedCache::JSONCache
-      WithTimedCache::Caches.cache_class("json").should == WithTimedCache::JSONCache
-      WithTimedCache::Caches.cache_class(:yaml).should == WithTimedCache::YAMLCache
-      WithTimedCache::Caches.cache_class("").should == WithTimedCache::Cache
-      WithTimedCache::Caches.cache_class.should == WithTimedCache::Cache
+      expect(WithTimedCache::Caches.cache_class(:json)).to eql(WithTimedCache::JSONCache)
+      expect(WithTimedCache::Caches.cache_class("json")).to eql(WithTimedCache::JSONCache)
+      expect(WithTimedCache::Caches.cache_class(:yaml)).to eql(WithTimedCache::YAMLCache)
+      expect(WithTimedCache::Caches.cache_class("")).to eql(WithTimedCache::Cache)
+      expect(WithTimedCache::Caches.cache_class).to eql(WithTimedCache::Cache)
     end
 
     it "will return the constant of the cache class for the given format" do
       expect {
-        WithTimedCache::Caches.cache_class(:foobar).should == WithTimedCache::JSONCache
+        WithTimedCache::Caches.cache_class(:foobar)
       }.to raise_error WithTimedCache::InvalidCacheFormatException
     end
   end

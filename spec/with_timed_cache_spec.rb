@@ -19,7 +19,7 @@ describe WithTimedCache do
       data = with_timed_cache(:max_age_1, location: @cache_directory, max_age: 1.minute) do
         i == 0 ? original_val : updated_val
       end
-      data.should == original_val
+      expect(data).to eql(original_val)
     end
   end
 
@@ -32,11 +32,11 @@ describe WithTimedCache do
         i == 0 ? original_val : updated_val
       end
       if i == 0
-        data.should == original_val
+        expect(data).to eql(original_val)
         sleep 1.5 # sleep longer than max_age
       end
     end
-    data.should == updated_val
+    expect(data).to eql(updated_val)
   end
 
   it "caches marshaled data to a file" do
@@ -45,11 +45,11 @@ describe WithTimedCache do
     data = [1, 2, 3]
 
     cached_data = with_timed_cache(key, location: @cache_directory) { data }
-    cached_data.should == data
-    File.exists?(File.join(@cache_directory, filename)).should be_true
+    expect(cached_data).to eql(data)
+    expect(File.exists?(File.join(@cache_directory, filename))).to be true
 
     raw_cache_data = File.read(File.join(@cache_directory, filename))
-    Marshal.load(raw_cache_data).should == data
+    expect(Marshal.load(raw_cache_data)).to eql(data)
   end
 
   it "lets you store cache data as json" do
@@ -59,11 +59,11 @@ describe WithTimedCache do
     data = { foo: 'bar', baz: 'qux' }
 
     cached_data = with_timed_cache(key, location: @cache_directory, format: :json) { data }
-    cached_data.should == data
-    File.exists?(filepath).should be_true
+    expect(cached_data).to eql(data)
+    expect(File.exists?(filepath)).to be true
 
     raw_cache_data = File.read(filepath)
-    JSON.parse(raw_cache_data, symbolize_names: true).should == data
+    expect(JSON.parse(raw_cache_data, symbolize_names: true)).to eql(data)
   end
 
   it "lets you store cache data as yaml" do
@@ -73,11 +73,11 @@ describe WithTimedCache do
     data = { foo: 'bar', baz: 'qux' }
 
     cached_data = with_timed_cache(key, location: @cache_directory, format: :yaml) { data }
-    cached_data.should == data
-    File.exists?(filepath).should be_true
+    expect(cached_data).to eql(data)
+    expect(File.exists?(filepath)).to be true
 
     raw_cache_data = File.read(filepath)
-    YAML.load_file(filepath).should == data
+    expect(YAML.load_file(filepath)).to eql(data)
   end
 
   it "returns last cached data if present when an exception is raised" do
@@ -93,14 +93,14 @@ describe WithTimedCache do
       end
       sleep 1.5 if i == 0
     end
-    data.should == string
+    expect(data).to eql(string)
   end
 
   it "returns nil when an exception is raised if no previous cache is present" do
     data = with_timed_cache(:exception_nil, location: @cache_directory, max_age: 1.second) do
       raise Exception
     end
-    data.should be_nil
+    expect(data).to be nil
   end
 
   def clean_cache_directory
