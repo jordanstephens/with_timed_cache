@@ -13,6 +13,13 @@ describe WithTimedCache do
     clean_cache_directory
   end
 
+  it "does not require opts to be passed" do
+    val = "NO OPTS"
+    FileUtils.mkdir_p("tmp")
+    data = with_timed_cache(:no_opts) { val }
+    expect(data).to eql(val)
+  end
+
   it "caches data for a defined max_age" do
     original_val = "original value"
     updated_val = "updated value"

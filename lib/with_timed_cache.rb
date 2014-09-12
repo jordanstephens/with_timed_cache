@@ -2,7 +2,7 @@ require "with_timed_cache/version"
 require "with_timed_cache/caches"
 
 module WithTimedCache
-  def with_timed_cache(key, opts)
+  def with_timed_cache(key, opts = {})
     cache = Caches.find_or_create(key, opts)
 
     if cache.exists? && !cache.stale?
